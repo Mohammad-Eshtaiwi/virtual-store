@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+.my-nav {
+  justify-content: space-between;
+}
+// category-list
+.category-list {
+  justify-content: flex-start;
+}
+
+.categories {
+  button.active {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+}
+
+// footer
+
+footer p:first-of-type {
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+footer p:nth-of-type(2) {
+  font-size: 0.9rem;
+}
+
+// utilities
+
+.padding-tb-1 {
+  padding: 1em 0;
+}
