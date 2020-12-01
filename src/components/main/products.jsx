@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -10,6 +10,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+
+import { rerender, decrement } from '../../store/products';
+import { add } from '../../store/cart';
 
 const useStyles = makeStyles({
   root: {
@@ -23,6 +26,9 @@ const useStyles = makeStyles({
 function Products(props) {
   console.log('products', props);
   const classes = useStyles();
+  useEffect(() => {
+    props.rerender(props.activeCategory);
+  }, [props.activeCategory]);
 
   return (
     <Container>
@@ -42,7 +48,14 @@ function Products(props) {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => {
+                    props.add(product);
+                    props.decrement(product);
+                  }}
+                >
                   Add To Cart
                 </Button>
                 <Button size="small" color="primary">
@@ -57,13 +70,13 @@ function Products(props) {
   );
 }
 
-const mapStateToProps = ({ store }) => {
+const mapStateToProps = store => {
   console.log('store', store);
   return {
-    category: store.categories,
-    productsToDisplay: store.productsToDisplay,
+    productsToDisplay: store.products.productsToDisplay,
+    activeCategory: store.categories.activeCategory,
   };
 };
-const mapDispatchToProps = {};
+const mapDispatchToProps = { rerender, add, decrement };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
