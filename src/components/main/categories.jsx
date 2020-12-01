@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { reactivate } from '../../store/sotre-reducer';
+import { reactivate } from '../../store/categories';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -48,9 +48,12 @@ function Categories(props) {
   );
 }
 
-const mapStateToProps = ({ store }) => {
+const mapStateToProps = store => {
   console.log('store', store);
-  return { categories: store.categories, activeCategory: store.activeCategory };
+  return {
+    categories: store.categories.categories,
+    activeCategory: store.categories.activeCategory,
+  };
 };
 const mapDispatchToProps = { reactivate };
 
